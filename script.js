@@ -29,16 +29,27 @@ function renderElements(a) {
   
 }
 
-renderElements(tasks);
-
+renderElements(tasks)
 
 function createTaskItem(atividade, urgencia) {
-
+  
   const li = document.createElement("li");
   const div = document.createElement("div");
   const span = document.createElement("span");
   const p = document.createElement("p");
   const button = document.createElement("button");
+
+  button.addEventListener("click", function(event){
+    event.preventDefault();
+
+    for (i = 0; i < tasks.length; i++) {
+      if (tasks[i].title == atividade) {
+        tasks.splice([i], 1)
+      }
+    }
+    
+    renderElements(tasks)
+  })
   
   
   li.classList.add("task__item");
@@ -59,7 +70,25 @@ function createTaskItem(atividade, urgencia) {
   div.appendChild(p);
   li.appendChild(div);
   li.appendChild(button);
-
+  
   return li
 }
 
+const button = document.querySelector("button");
+const inputTask = document.getElementById("input_title");
+const inputType = document.querySelector("select");
+
+button.addEventListener("click", function(event){
+  event.preventDefault();
+  
+  const taskTitle = inputTask.value;
+  const taskType = inputType.value.charAt(0).toUpperCase() + inputType.value.slice(1);
+  
+  const newTask = {
+    title: taskTitle,
+    type: taskType,
+  }
+  
+  tasks.push(newTask);
+  renderElements(tasks)
+})
