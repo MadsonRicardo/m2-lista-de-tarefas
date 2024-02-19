@@ -47,7 +47,7 @@ function createTaskItem(atividade, urgencia) {
         tasks.splice([i], 1)
       }
     }
-    
+
     renderElements(tasks)
   })
   
@@ -83,6 +83,20 @@ button.addEventListener("click", function(event){
   
   const taskTitle = inputTask.value;
   const taskType = inputType.value.charAt(0).toUpperCase() + inputType.value.slice(1);
+  console.log(taskType)
+
+  if (taskType === "") {
+    alert("Inserir tipo")
+    return;
+  } 
+
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].title === taskTitle) {
+      alert("Tarefa duplicada");
+      return;
+    }
+
+  }
   
   const newTask = {
     title: taskTitle,
