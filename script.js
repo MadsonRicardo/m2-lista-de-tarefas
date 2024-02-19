@@ -21,7 +21,7 @@ function renderElements(a) {
 
   for (i = 0; i < a.length; i++) {
 
-    const newTask = createTaskItem(tasks[i].title, tasks[i].type);
+    const newTask = createTaskItem({ title: a[i].title, type: a[i].type });
 
     tasksList.appendChild(newTask);
 
@@ -31,7 +31,7 @@ function renderElements(a) {
 
 renderElements(tasks)
 
-function createTaskItem(atividade, urgencia) {
+function createTaskItem(objeto) {
   
   const li = document.createElement("li");
   const div = document.createElement("div");
@@ -43,8 +43,9 @@ function createTaskItem(atividade, urgencia) {
     event.preventDefault();
 
     for (i = 0; i < tasks.length; i++) {
-      if (tasks[i].title == atividade) {
-        tasks.splice([i], 1)
+      if (tasks[i].title == objeto.title) {
+        tasks.splice(i, 1)
+        break;
       }
     }
 
@@ -54,16 +55,16 @@ function createTaskItem(atividade, urgencia) {
   
   li.classList.add("task__item");
   div.classList.add("task-info__container");
-  if (urgencia === "Urgente") {
+  if (objeto.type === "Urgente") {
     span.classList.add("task-type__span-urgent")
-  } else if (urgencia === "Importante") {
+  } else if (objeto.type === "Importante") {
     span.classList.add("task-type__span-important")
-  } else if (urgencia === 'Normal') {
+  } else if (objeto.type === 'Normal') {
     span.classList.add("task-type__span-normal")
   }
   button.classList.add("task__button--remove-task");
   
-  p.textContent = atividade;
+  p.textContent = objeto.title;
   span.textContent = "•";
   
   div.appendChild(span);
